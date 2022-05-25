@@ -1,36 +1,42 @@
-function romanNumeral(string) {
-  const romans = {
+function romanNumeral(s) {
+
+  const romanHash = {
     I: 1,
-    IV: 4,
     V: 5,
-    IX: 9,
     X: 10,
-    XL: 40,
     L: 50,
-    XC: 90,
     C: 100,
-    CD: 400,
     D: 500,
-    CM: 900,
-    M: 1000
+    M: 1000,
   };
-  let total = 0;
-  let idx = 0;
 
-  while (idx < string.length) {
-    const twoChar = string[idx] + (string[idx + 1] || '');
+  let accumulator = 0;
 
-    if (romans[twoChar] !== undefined) {
-      total += romans[twoChar];
-      idx += 2;
-    } else {
-      total += romans[string[idx]];
-      ++idx;
+  for (let i = 0; i < s.length; i++) {
+      if (s[i] === "I" && s[i + 1] === "V") {
+        accumulator += 4;
+        i++;
+      } else if (s[i] === "I" && s[i + 1] === "X") {
+        accumulator += 9;
+        i++;
+      } else if (s[i] === "X" && s[i + 1] === "L") {
+        accumulator += 40;
+        i++;
+      } else if (s[i] === "X" && s[i + 1] === "C") {
+        accumulator += 90;
+        i++;
+      } else if (s[i] === "C" && s[i + 1] === "D") {
+        accumulator += 400;
+        i++;
+      } else if (s[i] === "C" && s[i + 1] === "M") {
+        accumulator += 900;
+        i++;
+      } else {
+        accumulator += romanHash[s[i]];
+      }
     }
+    return accumulator;
   }
-
-  return total;
-}
 
 if (require.main === module) {
   // add your own tests in here
